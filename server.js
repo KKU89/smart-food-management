@@ -1,0 +1,22 @@
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+const menuRoutes = require('./routes/menuRoutes');
+const tableRoutes = require('./routes/tableRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const inventoryRoutes = require('./routes/inventoryRoutes');
+dotenv.config();
+connectDB();
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use('/api/menu', menuRoutes);
+app.use('/api/tables', tableRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/inventory', inventoryRoutes);
+app.get('/', (req, res) => {
+res.send('API is running...');
+});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, console.log(`Server running on port ${PORT}`));
