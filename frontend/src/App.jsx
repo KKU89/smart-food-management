@@ -12,15 +12,15 @@ const [selectedItems, setSelectedItems] = useState([]);
 const [newTable, setNewTable] = useState({ tableNumber: '', capacity: '' });
 const [newInvItem, setNewInvItem] = useState({ itemName: '', quantity: '', unit: '' });
 useEffect(() => {
-fetch('http://localhost:5000/api/menu').then(res => res.json()).then(data => setMenu(data)).catch(err => console.error(err));
-fetch('http://localhost:5000/api/orders').then(res => res.json()).then(data => setOrders(data)).catch(err => console.error(err));
-fetch('http://localhost:5000/api/tables').then(res => res.json()).then(data => setTables(data)).catch(err => console.error(err));
-fetch('http://localhost:5000/api/inventory').then(res => res.json()).then(data => setInventory(data)).catch(err => console.error(err));
+fetch('https://smart-food-backend-y4h5.onrender.com/api/menu').then(res => res.json()).then(data => setMenu(data)).catch(err => console.error(err));
+fetch('https://smart-food-backend-y4h5.onrender.com/api/orders').then(res => res.json()).then(data => setOrders(data)).catch(err => console.error(err));
+fetch('https://smart-food-backend-y4h5.onrender.com/api/tables').then(res => res.json()).then(data => setTables(data)).catch(err => console.error(err));
+fetch('https://smart-food-backend-y4h5.onrender.com/api/inventory').then(res => res.json()).then(data => setInventory(data)).catch(err => console.error(err));
 }, []);
 const handleMenuSubmit = async (e) => {
 e.preventDefault();
 try {
-const response = await fetch('http://localhost:5000/api/menu', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...newItem, isAvailable: true }) });
+const response = await fetch('https://smart-food-backend-y4h5.onrender.com/api/menu', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...newItem, isAvailable: true }) });
 const savedItem = await response.json();
 setMenu([...menu, savedItem]);
 setNewItem({ name: '', category: 'Main Course', price: '' });
@@ -28,7 +28,7 @@ setNewItem({ name: '', category: 'Main Course', price: '' });
 };
 const handleMenuDelete = async (id) => {
 try {
-await fetch(`http://localhost:5000/api/menu/${id}`, { method: 'DELETE' });
+await fetch(`https://smart-food-backend-y4h5.onrender.com/api/menu/${id}`, { method: 'DELETE' });
 setMenu(menu.filter(item => item._id !== id));
 } catch (error) { console.error(error); }
 };
@@ -52,7 +52,7 @@ const handleOrderSubmit = async (e) => {
 e.preventDefault();
 const totalAmount = selectedItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 try {
-const response = await fetch('http://localhost:5000/api/orders', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ tableNumber: Number(newOrderTable), items: selectedItems, totalAmount: totalAmount }) });
+const response = await fetch('https://smart-food-backend-y4h5.onrender.com/api/orders', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ tableNumber: Number(newOrderTable), items: selectedItems, totalAmount: totalAmount }) });
 const savedOrder = await response.json();
 setOrders([...orders, savedOrder]);
 setNewOrderTable('');
@@ -61,14 +61,14 @@ setSelectedItems([]);
 };
 const handleOrderDelete = async (id) => {
 try {
-await fetch(`http://localhost:5000/api/orders/${id}`, { method: 'DELETE' });
+await fetch(`https://smart-food-backend-y4h5.onrender.com/api/orders/${id}`, { method: 'DELETE' });
 setOrders(orders.filter(order => order._id !== id));
 } catch (error) { console.error(error); }
 };
 const handleTableSubmit = async (e) => {
 e.preventDefault();
 try {
-const response = await fetch('http://localhost:5000/api/tables', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ tableNumber: Number(newTable.tableNumber), capacity: Number(newTable.capacity), status: 'Available' }) });
+const response = await fetch('https://smart-food-backend-y4h5.onrender.com/api/tables', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ tableNumber: Number(newTable.tableNumber), capacity: Number(newTable.capacity), status: 'Available' }) });
 const savedTable = await response.json();
 setTables([...tables, savedTable]);
 setNewTable({ tableNumber: '', capacity: '' });
@@ -76,14 +76,14 @@ setNewTable({ tableNumber: '', capacity: '' });
 };
 const handleTableDelete = async (id) => {
 try {
-await fetch(`http://localhost:5000/api/tables/${id}`, { method: 'DELETE' });
+await fetch(`https://smart-food-backend-y4h5.onrender.com/api/tables/${id}`, { method: 'DELETE' });
 setTables(tables.filter(table => table._id !== id));
 } catch (error) { console.error(error); }
 };
 const handleInventorySubmit = async (e) => {
 e.preventDefault();
 try {
-const response = await fetch('http://localhost:5000/api/inventory', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ itemName: newInvItem.itemName, quantity: Number(newInvItem.quantity), unit: newInvItem.unit }) });
+const response = await fetch('https://smart-food-backend-y4h5.onrender.com/api/inventory', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ itemName: newInvItem.itemName, quantity: Number(newInvItem.quantity), unit: newInvItem.unit }) });
 const savedItem = await response.json();
 setInventory([...inventory, savedItem]);
 setNewInvItem({ itemName: '', quantity: '', unit: '' });
@@ -91,7 +91,7 @@ setNewInvItem({ itemName: '', quantity: '', unit: '' });
 };
 const handleInventoryDelete = async (id) => {
 try {
-await fetch(`http://localhost:5000/api/inventory/${id}`, { method: 'DELETE' });
+await fetch(`https://smart-food-backend-y4h5.onrender.com/api/inventory/${id}`, { method: 'DELETE' });
 setInventory(inventory.filter(item => item._id !== id));
 } catch (error) { console.error(error); }
 };
