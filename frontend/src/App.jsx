@@ -111,7 +111,7 @@ return (
 <div className="container">
 <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 <h1 style={{ marginBottom: '0' }}>Dashboard - {role}</h1>
-<button onClick={() => setRole(null)} className="btn-delete" style={{ padding: '10px 20px', height: 'fit-content' }}>Logout / Switch Role</button>
+<button onClick={() => setRole(null)} className="btn-delete logout-btn" style={{ padding: '10px 20px', height: 'fit-content' }}>Logout / Switch Role</button>
 </div>
 {(role === 'Manager' || role === 'Admin') && (
 <>
